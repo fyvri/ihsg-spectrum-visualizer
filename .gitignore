@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dev-dist/
+.wrangler/
+.dev.vars
+*.local
+.DS_Store
+
+# Bundled audio may be copyrighted — keep local, never commit/publish
+/public/audio/*
+!/public/audio/.gitkeep
+!/public/audio/README.md

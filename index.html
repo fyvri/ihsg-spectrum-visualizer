@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Theme: light is the default; on access follow the device OS scheme, and a
+       saved preference always wins. Applied before paint so there is no flash. -->
+  <script>
+    (function () {
+      try {
+        var t = null;
+        try {
+          var p = JSON.parse(localStorage.getItem("ihsg.prefs.v1") || "");
+          if (p && p.theme) t = p.theme;
+        } catch (e) {}
+        if (!t)
+          t =
+            window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDX Composite | IHSG Spectrum Visualizer</title>
+  <meta name="description" content="Google-Finance-style IDX Composite (IHSG) quote page whose price chart renders as a live audio spectrum and whose headline sings the melody." />
+
+  <!-- favicons + iOS home-screen icons (canonical set: ./icons) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png" />
+
+  <!-- theme color follows the active scheme; light is the app default -->
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

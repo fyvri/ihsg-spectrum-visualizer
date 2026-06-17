@@ -1,0 +1,28 @@
+{
+  // The Worker name MUST match the Worker name in the Cloudflare dashboard
+  "name": "ihsg-spectrum-visualizer",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-06-01",
+
+  // Single-Worker topology: non-/api paths are served from the Vite build via the Assets binding;
+  // /api/* must always reach fetch() first.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Optional KV cache (off by default so this repo is fork-and-deploy with no setup).
+  // The Worker fetches the quote live when KV is unbound. To enable caching,
+  // create a namespace and bind it as IHSG_KV — either in the dashboard
+  // (Workers → your Worker → Settings → Bindings → KV namespace) or
+  // by uncommenting the block below and pasting your id:
+  // "kv_namespaces": [{ "binding": "IHSG_KV", "id": "<your-kv-namespace-id>" }],
+
+  // scheduled(): refresh the KV snapshot every 5 minutes (a no-op until IHSG_KV is bound above;
+  // harmless to leave enabled either way).
+  "triggers": { "crons": ["*/5 * * * *"] },
+
+  "observability": { "enabled": true }
+}
